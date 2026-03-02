@@ -182,7 +182,7 @@ func convertToCharset(data string, charSet string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Fprintf(w, data)
+	fmt.Fprint(w, data)
 	w.Close()
 	return buf.String(), nil
 }
