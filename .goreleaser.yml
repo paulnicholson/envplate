@@ -36,4 +36,6 @@ brews:
       name: homebrew-taps
       token: "{{ .Env.GORELEASER_TOKEN }}"
     homepage: "https://github.com/paulnicholson/envplate"
-    description: "Docker-friendly trivial templating for configuration files using environment keys."
+    description: "Docker-friendly trivial templating for config files using environment keys"
+    test: |
+      assert_match version.to_s, shell_output("#{bin}/envplate --help")
