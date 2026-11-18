@@ -32,8 +32,8 @@ changelog:
       - '^test:'
 brews:
   - repository:
-      owner: kreuzwerker
+      owner: paulnicholson
       name: homebrew-taps
       token: "{{ .Env.GORELEASER_TOKEN }}"
-    homepage: "https://github.com/kreuzwerker/envplate"
+    homepage: "https://github.com/paulnicholson/envplate"
     description: "Docker-friendly trivial templating for configuration files using environment keys."
