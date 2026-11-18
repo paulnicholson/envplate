@@ -48,7 +48,7 @@ func (l *logger) log(lvl logLevel, msg string, args ...interface{}) error {
 	msg = fmt.Sprintf(msg, args...)
 
 	if lvl == RAW {
-		fmt.Fprintf(l.Out, msg)
+		fmt.Fprint(l.Out, msg)
 		return nil
 	}
 
