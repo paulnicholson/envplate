@@ -30,12 +30,16 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-brews:
+homebrew_casks:
   - repository:
       owner: paulnicholson
       name: homebrew-taps
       token: "{{ .Env.GORELEASER_TOKEN }}"
     homepage: "https://github.com/paulnicholson/envplate"
     description: "Docker-friendly trivial templating for config files using environment keys"
-    test: |
-      assert_match version.to_s, shell_output("#{bin}/envplate --help")
+    hooks:
+      post:
+        install_steps: |
+          on_macos do
+            run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{ .StagedPath }}/envplate"]
+          end

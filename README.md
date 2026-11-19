@@ -31,6 +31,20 @@ Example: `/usr/local/bin/ep -v *.conf -- /usr/sbin/nginx -c /etc/nginx.conf`
 
 This can be used to use `ep` to parse configs and execute the container process using Dockers `CMD`
 
+## Installation
+
+Install envplate with [Homebrew](https://brew.sh):
+
+```
+brew install --cask paulnicholson/taps/envplate
+```
+
+Homebrew installs the binary as `envplate`. The examples in this README use the name `ep`. If you want that name too, add a symlink:
+
+```
+ln -s "$(brew --prefix)/bin/envplate" "$(brew --prefix)/bin/ep"
+```
+
 ## Escaping
 
 In case the file you want to modify already uses the pattern envplate is searching for ( e.g. for reading environment variables ) you can escape the sequence by adding a leading backslash `\`. It's also possible to escape a leading backslash by adding an additional backslash. Basically a sequence with an even number of leading backslashes will be parsed, is the number of leading backslashes odd the sequence will be escaped.
