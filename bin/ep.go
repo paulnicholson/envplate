@@ -6,7 +6,7 @@ import (
 	"os"
 	"syscall"
 
-	"github.com/kreuzwerker/envplate"
+	"github.com/paulnicholson/envplate"
 	_ "github.com/paulrosania/go-charset/data"
 	"github.com/spf13/cobra"
 	"github.com/yawn/doubledash"

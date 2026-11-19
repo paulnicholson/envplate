@@ -109,3 +109,39 @@ EXPOSE 80 443
 CMD [ "/bin/ep", "-v", "/etc/nginx/*.conf", "--", "/usr/sbin/nginx", "-g", "daemon off;" ]
 ```
 Source: https://github.com/avthart/docker-nginx-env
+
+## Building
+
+Build `ep` for your platform with Go:
+
+```
+go build -o ep ./bin
+```
+
+To set the version and commit that `ep --help` shows, pass them as linker flags:
+
+```
+go build -ldflags "-X main.version=dev -X main.build=$(git rev-parse --short HEAD)" -o ep ./bin
+```
+
+Releases use [GoReleaser](https://goreleaser.com). To build the release archives on your machine without publishing them, run:
+
+```
+goreleaser release --snapshot --clean
+```
+
+GoReleaser writes the archives to `dist/`. To publish a release, push a semver tag such as `v1.0.4`. The `goreleaser` workflow then builds the archives, creates the GitHub release, and updates the Homebrew cask.
+
+## Testing
+
+One test checks the file mode of `test/filemode.txt`. Git does not store that mode, so set it after you clone the repository:
+
+```
+chmod 765 test/filemode.txt
+```
+
+Then run the tests:
+
+```
+go test -v -race -cover ./...
+```

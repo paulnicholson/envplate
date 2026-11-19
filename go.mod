@@ -1,4 +1,4 @@
-module github.com/kreuzwerker/envplate
+module github.com/paulnicholson/envplate
 
 go 1.26
 
