@@ -1,9 +1,8 @@
 # Envplate
 
-[![Release](https://img.shields.io/github/v/release/kreuzwerker/envplate)](https://github.com/kreuzwerker/envplate/releases)
-[![Build Status](https://github.com/kreuzwerker/envplate/workflows/build/badge.svg)](https://github.com/kreuzwerker/envplate/actions)
-[![Documentation](https://godoc.org/github.com/kreuzwerker/envplate?status.svg)](http://godoc.org/github.com/kreuzwerker/envplate) 
-[![Go Report Card](https://goreportcard.com/badge/github.com/kreuzwerker/envplate)](https://goreportcard.com/report/github.com/kreuzwerker/envplate) 
+[![Release](https://img.shields.io/github/v/release/paulnicholson/envplate)](https://github.com/paulnicholson/envplate/releases)
+[![Build Status](https://github.com/paulnicholson/envplate/workflows/build/badge.svg)](https://github.com/paulnicholson/envplate/actions)
+[![Documentation](https://godoc.org/github.com/paulnicholson/envplate?status.svg)](http://godoc.org/github.com/paulnicholson/envplate) 
 
 Trivial templating for configuration files using environment keys. References to such keys are declared in arbitrary config files either as:
 
@@ -49,7 +48,7 @@ ln -s "$(brew --prefix)/bin/envplate" "$(brew --prefix)/bin/ep"
 
 In case the file you want to modify already uses the pattern envplate is searching for ( e.g. for reading environment variables ) you can escape the sequence by adding a leading backslash `\`. It's also possible to escape a leading backslash by adding an additional backslash. Basically a sequence with an even number of leading backslashes will be parsed, is the number of leading backslashes odd the sequence will be escaped.
 
-See https://github.com/kreuzwerker/envplate#full-example
+See https://github.com/paulnicholson/envplate#full-example
 
 ## Why?
 
@@ -58,7 +57,10 @@ For apps running Docker which rely (fully or partially) on configuration files i
 You can directly download envplate binaries into your Dockerfile using Github releases like this:
 
 ```
-RUN wget -q https://github.com/kreuzwerker/envplate/releases/download/v1.0.2/envplate_1.0.2_$(uname -s)_$(uname -m).tar.gz -O - | tar xz && mv envplate /usr/local/bin/ep && chmod +x /usr/local/bin/ep
+ARG TARGETOS
+ARG TARGETARCH
+
+RUN wget -q https://github.com/paulnicholson/envplate/releases/download/v1.0.4/envplate_1.0.4_${TARGETOS}_${TARGETARCH}.tar.gz -O - | tar xz && mv envplate /usr/local/bin/ep && chmod +x /usr/local/bin/ep
 
 ...
 
@@ -97,8 +99,10 @@ NotEscaped2=\\db2.example.com
 FROM nginx:latest
 MAINTAINER Albert van t Hart <avthart@gmail.com>
 
-ADD https://github.com/kreuzwerker/envplate/releases/download/v0.0.7/ep-linux /bin/ep
-RUN chmod +x /bin/ep
+ARG TARGETOS
+ARG TARGETARCH
+
+RUN curl -fsSL https://github.com/paulnicholson/envplate/releases/download/v1.0.4/envplate_1.0.4_${TARGETOS}_${TARGETARCH}.tar.gz | tar xz -C /bin envplate && mv /bin/envplate /bin/ep
 
 EXPOSE 80 443
 
